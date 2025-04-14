@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNY App - Earn Money Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C5CE7;
+            --secondary: #00CEFF;
+            --success: #00B894;
+            --danger: #D63031;
+            --warning: #FDCB6E;
+            --dark: #2D3436;
+            --light: #F5F6FA;
+            --gray: #636E72;
+            --purple-gradient: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --blue-gradient: linear-gradient(135deg, #00CEFF 0%, #0984E3 100%);
+            --green-gradient: linear-gradient(135deg, #00B894 0%, #55EFC4 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: var(--purple-gradient);
+            color: white;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+            padding: 15px 0;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .nav-links a.active {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-links a i {
+            font-size: 18px;
+        }
+        
+        /* Dashboard Page */
+        .page {
+            display: none;
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .page-title {
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .page-title i {
+            font-size: 32px;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            color: var(--gray);
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stat-card h3 i {
+            font-size: 20px;
+        }
+        
+        .stat-card p {
+            font-size: 32px;
+            font-weight: bold;
+            background: var(--purple-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .claim-section {
+            text-align: center;
+            margin: 50px 0;
+            padding: 40px;
+            background: var(--light);
+            border-radius: 15px;
+            border: 2px dashed var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .claim-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+        }
+        
+        .claim-section h2 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .claim-section p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .claim-btn {
+            background: var(--purple-gradient);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .claim-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+        
+        .claim-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            animation: none;
+        }
+        
+        .timer {
+            margin-top: 20px;
+            color: var(--gray);
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .withdraw-btn {
+            display: block;
+            margin: 40px auto 0;
+            background: var(--blue-gradient);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 206, 255, 0.3);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .withdraw-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 206, 255, 0.4);
+        }
+        
+        /* Withdrawal Page */
+        .withdraw-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group label i {
+            color: var(--primary);
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+            outline: none;
+        }
+        
+        .submit-btn {
+            background: var(--blue-gradient);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 206, 255, 0.3);
+        }
+        
+        .info-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .info-box h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-box ul {
+            list-style-type: none;
+        }
+        
+        .info-box li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .info-box li::before {
+            content: '•';
+            color: var(--primary);
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        /* Referral Page */
+        .referral-card {
+            background: var(--purple-gradient);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .referral-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+        }
+        
+        .referral-card h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .referral-card p {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .referral-link {
+            background-color: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .referral-link input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            width: 80%;
+        }
+        
+        .referral-link input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .copy-btn {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+        }
+        
+        .facebook { background-color: #3b5998; }
+        .twitter { background-color: #1da1f2; }
+        .whatsapp { background-color: #25d366; }
+        .telegram { background-color: #0088cc; }
+        
+        .referral-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .referral-stat {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .referral-stat:hover {
+            transform: translateY(-5px);
+        }
+        
+        .referral-stat h3 {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .referral-stat p {
+            font-size: 28px;
+            font-weight: bold;
+            background: var(--purple-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: var(--green-gradient);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+            max-width: 350px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification.error {
+            background: var(--danger);
+            background: linear-gradient(135deg, #D63031 0%, #FF7675 100%);
+        }
+        
+        .notification i {
+            font-size: 24px;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--purple-gradient);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+            
+            .page {
+                padding: 20px;
+            }
+            
+            .claim-section {
+                padding: 30px 20px;
+            }
+            
+            .notification {
+                top: 20px;
+                right: 20px;
+                left: 20px;
+                max-width: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stat-card p, .referral-stat p {
+                font-size: 24px;
+            }
+            
+            .claim-btn, .withdraw-btn, .submit-btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+            
+            .referral-link {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .referral-link input {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo"><i class="fas fa-coins"></i> MNY App</a>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-page="dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="#" class="nav-link" data-page="withdraw">
+                    <i class="fas fa-wallet"></i> Withdraw
+                </a>
+                <a href="#" class="nav-link" data-page="referral">
+                    <i class="fas fa-user-friends"></i> Referral
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Dashboard Page -->
+        <div class="page active" id="dashboard">
+            <h1 class="page-title"><i class="fas fa-tachometer-alt"></i> Your Earnings Dashboard</h1>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3><i class="fas fa-money-bill-wave"></i> Total Earned</h3>
+                    <p id="total-earned">0 Points</p>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-piggy-bank"></i> Available Balance</h3>
+                    <p id="available-balance">0 Points</p>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-hand-holding-usd"></i> Total Withdrawn</h3>
+                    <p id="total-withdrawn">0 Points</p>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="withdraw-progress" style="width: 0%"></div>
+            </div>
+            <p style="text-align: center; color: var(--gray); font-size: 14px;">
+                <span id="progress-text">0</span>/3000 points to next withdrawal
+            </p>
+            
+            <div class="claim-section">
+                <h2><i class="fas fa-gift"></i> Claim Your Daily Reward</h2>
+                <p>Click the button below to claim between 10-50 points</p>
+                <button id="claim-btn" class="claim-btn">
+                    <i class="fas fa-gift"></i> Claim Now
+                </button>
+                <p class="timer" id="timer">Next claim available in: 24h 00m 00s</p>
+            </div>
+            
+            <button id="withdraw-btn" class="withdraw-btn">
+                <i class="fas fa-wallet"></i> Withdraw Earnings
+            </button>
+        </div>
+        
+        <!-- Withdrawal Page -->
+        <div class="page" id="withdraw">
+            <h1 class="page-title"><i class="fas fa-wallet"></i> Withdraw Your Earnings</h1>
+            
+            <div class="withdraw-form">
+                <div class="form-group">
+                    <label for="account-name"><i class="fas fa-user"></i> Account Name</label>
+                    <input type="text" id="account-name" placeholder="Enter your account name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="account-number"><i class="fas fa-mobile-alt"></i> EasyPaisa/JazzCash Number</label>
+                    <input type="text" id="account-number" placeholder="Enter your mobile number">
+                </div>
+                
+                <div class="form-group">
+                    <label for="withdraw-amount"><i class="fas fa-coins"></i> Points to Withdraw (3000-10000)</label>
+                    <input type="number" id="withdraw-amount" min="3000" max="10000" placeholder="Enter amount">
+                </div>
+                
+                <button id="submit-withdraw" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Withdrawal Request
+                </button>
+                
+                <div class="info-box">
+                    <h3><i class="fas fa-info-circle"></i> Withdrawal Information</h3>
+                    <ul>
+                        <li>Minimum withdrawal: 3000 points (Rs. 30)</li>
+                        <li>Maximum withdrawal: 10000 points (Rs. 100)</li>
+                        <li>Only one withdrawal allowed per week</li>
+                        <li>Processing time: 24-48 hours</li>
+                        <li>100 points = Rs. 1</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Referral Page -->
+        <div class="page" id="referral">
+            <h1 class="page-title"><i class="fas fa-user-friends"></i> Refer & Earn</h1>
+            
+            <div class="referral-card">
+                <h2><i class="fas fa-gift"></i> Invite Friends & Earn 100 Points Each</h2>
+                <p>Share your referral link and earn points when your friends sign up and start earning</p>
+                
+                <div class="referral-link">
+                    <input type="text" id="referral-link" value="https://mnyapp.com/?ref=user123" readonly>
+                    <button id="copy-btn" class="copy-btn">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                </div>
+                
+                <div class="social-share">
+                    <div class="social-btn facebook" onclick="shareOnFacebook()">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-btn twitter" onclick="shareOnTwitter()">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <div class="social-btn whatsapp" onclick="shareOnWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="social-btn telegram" onclick="shareOnTelegram()">
+                        <i class="fab fa-telegram-plane"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="referral-stats">
+                <div class="referral-stat">
+                    <h3><i class="fas fa-users"></i> Total Referrals</h3>
+                    <p id="total-referrals">0</p>
+                </div>
+                <div class="referral-stat">
+                    <h3><i class="fas fa-coins"></i> Referral Earnings</h3>
+                    <p id="referral-earnings">0 Points</p>
+                </div>
+                <div class="referral-stat">
+                    <h3><i class="fas fa-clock"></i> Last Referral</h3>
+                    <p id="last-referral">None</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification" style="display: none;">
+        <i class="fas fa-check-circle"></i>
+        <div id="notification-text">Notification message here</div>
+    </div>
+    
+    <script>
+        // User data (in a real app, this would come from your database)
+        let userData = {
+            totalEarned: 0,
+            availableBalance: 0,
+            totalWithdrawn: 0,
+            lastClaim: null,
+            totalReferrals: 0,
+            referralEarnings: 0,
+            lastReferral: null,
+            lastWithdrawal: null,
+            referralCode: "USER" + Math.floor(1000 + Math.random() * 9000)
+        };
+        
+        // DOM Elements
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const claimBtn = document.getElementById('claim-btn');
+        const timer = document.getElementById('timer');
+        const withdrawBtn = document.getElementById('withdraw-btn');
+        const submitWithdraw = document.getElementById('submit-withdraw');
+        const copyBtn = document.getElementById('copy-btn');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notification-text');
+        const progressBar = document.getElementById('withdraw-progress');
+        const progressText = document.getElementById('progress-text');
+        const referralLink = document.getElementById('referral-link');
+        
+        // Initialize the page
+        function init() {
+            // Load user data from localStorage (temporary solution)
+            const savedData = localStorage.getItem('mnyAppUserData');
+            if (savedData) {
+                userData = JSON.parse(savedData);
+                updateDashboard();
+            }
+            
+            // Set referral link
+            referralLink.value = `https://mnyapp.com/?ref=${userData.referralCode}`;
+            
+            // Set up page navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.getAttribute('data-page');
+                    showPage(pageId);
+                    
+                    // Update active nav link
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+            
+            // Dashboard buttons
+            withdrawBtn.addEventListener('click', () => {
+                showPage('withdraw');
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                document.querySelector('[data-page="withdraw"]').classList.add('active');
+            });
+            
+            // Claim button
+            claimBtn.addEventListener('click', claimDailyReward);
+            
+            // Withdrawal form
+            submitWithdraw.addEventListener('click', processWithdrawal);
+            
+            // Copy referral link
+            copyBtn.addEventListener('click', copyReferralLink);
+            
+            // Check claim timer
+            checkClaimTimer();
+            
+            // Update progress bar
+            updateProgressBar();
+        }
+        
+        // Show specific page
+        function showPage(pageId) {
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+        
+        // Update dashboard with user data
+        function updateDashboard() {
+            document.getElementById('total-earned').textContent = userData.totalEarned + ' Points';
+            document.getElementById('available-balance').textContent = userData.availableBalance + ' Points';
+            document.getElementById('total-withdrawn').textContent = userData.totalWithdrawn + ' Points';
+            document.getElementById('total-referrals').textContent = userData.totalReferrals;
+            document.getElementById('referral-earnings').textContent = userData.referralEarnings + ' Points';
+            document.getElementById('last-referral').textContent = userData.lastReferral || 'None';
+            
+            updateProgressBar();
+        }
+        
+        // Update withdrawal progress bar
+        function updateProgressBar() {
+            const progress = Math.min(Math.floor((userData.availableBalance / 3000) * 100), 100);
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = userData.availableBalance;
+        }
+        
+        // Claim daily reward
+        function claimDailyReward() {
+            const now = new Date();
+            userData.lastClaim = now.toISOString();
+            
+            // Random reward between 10-50 points
+            const reward = Math.floor(Math.random() * 41) + 10;
+            userData.totalEarned += reward;
+            userData.availableBalance += reward;
+            
+            // Update UI and save
+            updateDashboard();
+            saveUserData();
+            
+            // Disable button for 24 hours
+            claimBtn.disabled = true;
+            startClaimTimer();
+            
+            // Show notification
+            showNotification(`Success! You claimed ${reward} points.`);
+        }
+        
+        // Check claim timer
+        function checkClaimTimer() {
+            if (userData.lastClaim) {
+                const lastClaim = new Date(userData.lastClaim);
+                const now = new Date();
+                const diff = now - lastClaim;
+                
+                if (diff < 24 * 60 * 60 * 1000) {
+                    // Less than 24 hours since last claim
+                    claimBtn.disabled = true;
+                    startClaimTimer();
+                }
+            }
+        }
+        
+        // Start claim countdown timer
+        function startClaimTimer() {
+            if (!userData.lastClaim) return;
+            
+            const lastClaim = new Date(userData.lastClaim);
+            const nextClaim = new Date(lastClaim.getTime() + 24 * 60 * 60 * 1000);
+            
+            const timerInterval = setInterval(() => {
+                const now = new Date();
+                const diff = nextClaim - now;
+                
+                if (diff <= 0) {
+                    clearInterval(timerInterval);
+                    timer.textContent = 'Ready to claim!';
+                    claimBtn.disabled = false;
+                    return;
+                }
+                
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                timer.textContent = `Next claim available in: ${hours}h ${minutes}m ${seconds}s`;
+            }, 1000);
+        }
+        
+        // Process withdrawal
+        function processWithdrawal() {
+            const accountName = document.getElementById('account-name').value.trim();
+            const accountNumber = document.getElementById('account-number').value.trim();
+            const amount = parseInt(document.getElementById('withdraw-amount').value);
+            
+            // Validate form
+            if (!accountName || !accountNumber || !amount) {
+                showNotification('Please fill all fields', 'error');
+                return;
+            }
+            
+            if (amount < 3000 || amount > 10000) {
+                showNotification('Withdrawal amount must be between 3000-10000 points', 'error');
+                return;
+            }
+            
+            if (userData.availableBalance < amount) {
+                showNotification('Insufficient balance for this withdrawal', 'error');
+                return;
+            }
+            
+            // Check if last withdrawal was less than 7 days ago
+            if (userData.lastWithdrawal) {
+                const lastWithdrawal = new Date(userData.lastWithdrawal);
+                const now = new Date();
+                const diff = now - lastWithdrawal;
+                
+                if (diff < 7 * 24 * 60 * 60 * 1000) {
+                    showNotification('You can only withdraw once per week', 'error');
+                    return;
+                }
+            }
+            
+            // Process withdrawal
+            userData.availableBalance -= amount;
+            userData.totalWithdrawn += amount;
+            userData.lastWithdrawal = new Date().toISOString();
+            
+            // Update UI and save
+            updateDashboard();
+            saveUserData();
+            
+            // Show success message
+            showNotification(`Withdrawal request for ${amount} points submitted successfully!`);
+            
+            // Reset form
+            document.getElementById('account-name').value = '';
+            document.getElementById('account-number').value = '';
+            document.getElementById('withdraw-amount').value = '';
+            
+            // Go back to dashboard
+            showPage('dashboard');
+            navLinks.forEach(navLink => navLink.classList.remove('active'));
+            document.querySelector('[data-page="dashboard"]').classList.add('active');
+        }
+        
+        // Copy referral link
+        function copyReferralLink() {
+            const link = document.getElementById('referral-link');
+            link.select();
+            link.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            
+            showNotification('Referral link copied to clipboard!');
+        }
+        
+        // Share functions
+        function shareOnFacebook() {
+            const link = encodeURIComponent(referralLink.value);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${link}`, '_blank');
+        }
+        
+        function shareOnTwitter() {
+            const text = encodeURIComponent('Earn money with me on MNY App! Use my referral link:');
+            const link = encodeURIComponent(referralLink.value);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${link}`, '_blank');
+        }
+        
+        function shareOnWhatsApp() {
+            const text = encodeURIComponent('Earn money with me on MNY App! Use my referral link: ' + referralLink.value);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+        
+        function shareOnTelegram() {
+            const text = encodeURIComponent('Earn money with me on MNY App! Use my referral link: ' + referralLink.value);
+            window.open(`https://t.me/share/url?url=${text}`, '_blank');
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'success') {
+            notificationText.textContent = message;
+            notification.className = 'notification';
+            notification.classList.add(type === 'error' ? 'error' : '');
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeIn 0.3s ease-out reverse';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                    notification.style.animation = 'fadeIn 0.3s ease-out';
+                }, 300);
+            }, 3000);
+        }
+        
+        // Save user data to localStorage
+        function saveUserData() {
+            localStorage.setItem('mnyAppUserData', JSON.stringify(userData));
+        }
+        
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
